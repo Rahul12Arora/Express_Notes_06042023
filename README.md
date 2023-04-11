@@ -573,4 +573,44 @@ function getData() {
 }
 
 
+// INTERCEPTING REQUESTS & RESPONSES
+axios.interceptors.request.use(
+  config => {
+    console.log(
+      `${config.method.toUpperCase()} request sent to ${
+        config.url
+      } at ${new Date().getTime()}`
+    );
+
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
+
+// CUSTOM HEADERS
+function customHeaders() {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'sometoken'
+    }
+  };
+
+  axios
+    .post(
+      'https://jsonplaceholder.typicode.com/todos',
+      {
+        title: 'New Todo',
+        completed: false
+      },
+      config
+    )
+    .then(res => showOutput(res))
+    .catch(err => console.error(err));
+}
+
+
 ```

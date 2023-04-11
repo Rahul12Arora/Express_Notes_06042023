@@ -501,3 +501,27 @@ axios.get('https://api.example.com/data')
 
 ```
 
+<h2>Listening to our own Server & making request to external ones with Axios</h2>
+
+```
+const express = require('express');
+const axios = require('axios');
+
+const app = express();
+
+app.get('/data', (req, res) => {
+  axios.get('https://api.example.com/data')
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
+
+```

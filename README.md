@@ -635,4 +635,12 @@ function transformResponse() {
 //GLOBAL TRANSFORMATION
 axios.defaults.headers.common['X-Auth-Token'] =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+  
+  
+// AXIOS INSTANCE
+const axiosInstance = axios.create({
+  // Other custom settings
+  baseURL: 'https://jsonplaceholder.typicode.com'
+});
+// axiosInstance.get('/comments').then(res => showOutput(res));
 ```

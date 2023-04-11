@@ -430,3 +430,74 @@ const options = {
 
 <li>Works in both browser and Node.js environments.</li>
 </ul>
+
+```
+npm install axios
+
+----------------------------------------------
+GET REQUEST(lISTENING TO OUR OWN SERVER)
+
+axios.get('/api/users')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+----------------------------------------------
+POST REQUEST(LISTENING TO OUR OWN SERVER)
+
+axios.post('/api/users', { name: 'John Doe', age: 30 })
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+----------------------------------------------
+UPLOADING FILES TO SERVER
+
+Axios can also be used to upload files to a server. This can be useful in applications that allow users to upload files, such as a file-sharing app or a social media platform.
+For example, consider an app that allows users to upload images to a server:</br>
+
+const formData = new FormData();
+formData.append('image', file);
+
+axios.post('/api/upload', formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+})
+.then(response => {
+  console.log(response.data);
+})
+.catch(error => {
+  console.error(error);
+});
+
+```
+
+<h3>Axios => making HTTP requests to external APIs or services</h3>
+
+1. Making API requests in a Node.js app</br>
+
+Axios can be used in Node.js to make HTTP requests to external APIs or services. This can be useful in server-side applications that need to fetch data from external sources or make requests to other services.</br>
+
+
+For example, consider a Node.js app that needs to fetch data from a remote API:</br>
+
+```
+const axios = require('axios');
+
+axios.get('https://api.example.com/data')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+```
+

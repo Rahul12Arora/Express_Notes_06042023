@@ -414,7 +414,7 @@ const options = {
       .catch((err) => console.error(err));
 ```
 
-<h3>Axios</h3>
+<h1>Axios</h1>
 
 **Axios is a popular JavaScript library for making HTTP requests. It provides an easy-to-use API that supports a wide range of request and response types. It works in both browser and Node.js environments and has built-in support for features like request and response interception, cancellation, and automatic handling of request and response data in various formats like JSON, XML, FormData, etc.**
 
@@ -523,5 +523,54 @@ app.get('/data', (req, res) => {
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
+
+```
+
+<h2>More on Axios</h2>
+
+<h3>Doing all Requests with AXIOS</h3>
+
+```
+// POST REQUEST
+function addTodo() {
+  axios
+    .post('https://jsonplaceholder.typicode.com/todos', {
+      title: 'New Todo',
+      completed: false
+    })
+    .then(res => showOutput(res))
+    .catch(err => console.error(err));
+}
+
+// PUT/PATCH REQUEST
+function updateTodo() {
+  axios
+    .patch('https://jsonplaceholder.typicode.com/todos/1', {
+      title: 'Updated Todo',
+      completed: true
+    })
+    .then(res => showOutput(res))
+    .catch(err => console.error(err));
+}
+
+// DELETE REQUEST
+function removeTodo() {
+  axios
+    .delete('https://jsonplaceholder.typicode.com/todos/1')
+    .then(res => showOutput(res))
+    .catch(err => console.error(err));
+}
+
+// SIMULTANEOUS DATA
+function getData() {
+  axios
+    .all([
+      axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
+      axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
+    ])
+    .then(axios.spread((todos, posts) => showOutput(posts)))
+    .catch(err => console.error(err));
+}
+
 
 ```

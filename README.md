@@ -382,6 +382,36 @@ app.post('/text', (req, res) => {
 app.use(express.static('public'))
 ```
 
+<h3>Image downloader Module</h3>
 
+```
+npm i image-downloader
+const download = require('image-downloader');
+
+const options = {
+  url: 'http://someurl.com/image.jpg',
+  dest: '/path/to/dest',               // will be saved to /path/to/dest/image.jpg
+};
+
+download.image(options)
+  .then(({ filename }) => {
+    console.log('Saved to', filename); // saved to /path/to/dest/image.jpg
+  })
+  .catch((err) => console.error(err));
+-----------------------------------------------------------------------
+USE CASE
+NOTE - DEST BY DEFAULT NODE MODULES M HOTA H, YOU'LL HAVE TO GO BACK TWICE TO REACH ROOT FOLDER
+const options = {
+      url: image_url,
+      dest: '../../loader',               // will be saved to /path/to/dest/image.jpg
+    };
+    console.log(options.dest);
+    
+    download.image(options)
+      .then(({ filename }) => {
+        console.log('Saved to', filename); // saved to /path/to/dest/image.jpg
+      })
+      .catch((err) => console.error(err));
+```
 
 

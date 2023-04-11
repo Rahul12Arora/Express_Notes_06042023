@@ -99,11 +99,13 @@ app.use('/users',userRouter) //first argument is common path, i.e Any url that s
 app.listen(3000);
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-//user file in routes folder
+//users file in routes folder
 
 const express = require('express');
 const router = express.Router();
 
+//All these routes are after /user by default
+-------------------------------------------------------
 router.get('/', (req,res)=>{
     res.send('user home');
 })
@@ -613,4 +615,24 @@ function customHeaders() {
 }
 
 
+// TRANSFORMING REQUESTS & RESPONSES
+function transformResponse() {
+  const options = {
+    method: 'post',
+    url: 'https://jsonplaceholder.typicode.com/todos',
+    data: {
+      title: 'Hello World'
+    },
+    transformResponse: axios.defaults.transformResponse.concat(data => {
+      data.title = data.title.toUpperCase();
+      return data;
+    })
+  };
+
+  axios(options).then(res => showOutput(res));
+}
+
+//GLOBAL TRANSFORMATION
+axios.defaults.headers.common['X-Auth-Token'] =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 ```

@@ -416,6 +416,8 @@ const options = {
 
 <h3>Axios</h3>
 
+**Axios is a popular JavaScript library for making HTTP requests. It provides an easy-to-use API that supports a wide range of request and response types. It works in both browser and Node.js environments and has built-in support for features like request and response interception, cancellation, and automatic handling of request and response data in various formats like JSON, XML, FormData, etc.**
+
 <ul>
 
 <li>Provides an easy-to-use API for making HTTP requests.</li>

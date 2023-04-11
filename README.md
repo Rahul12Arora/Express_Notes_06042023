@@ -414,4 +414,17 @@ const options = {
       .catch((err) => console.error(err));
 ```
 
+<h3>Axios</h3>
 
+<ul>
+
+<li>Provides an easy-to-use API for making HTTP requests.</li>
+
+<li>Supports request and response interception, allowing you to modify requests and responses.</li>
+
+<li>Supports automatic handling of request and response data in various formats such as JSON, XML, FormData, etc.</li>
+
+<li>Supports cancellation of requests.</li>
+
+<li>Works in both browser and Node.js environments.</li>
+</ul>

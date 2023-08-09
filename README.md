@@ -78,9 +78,140 @@ in script.ejs use like this
 <h2>Middleware</h2>
 Note-
 <ul>
+<li>Middleware functions in Node.js are functions that are executed in a sequence within the request-response cycle of an Express.js application. They sit between the incoming request and the final route handler, allowing you to perform various tasks such as modifying request and response objects, logging, authentication, error handling, and more.
+
+Middleware functions are executed in the order they are defined, and they can have access to the request (req), response (res), and next objects. The next function is a callback that should be called to pass control to the next middleware in the stack.</li>
+
 <li>
-app.use() is an Express method used to mount middleware functions at a specified path. Middleware functions are functions that have access to the req (request) and res (response) objects, and can perform operations on them, modify them, or pass them on to the next middleware function in the stack.
+The app.use() function is used to apply the middleware to all routes that are defined after it.
 </li>
+
+Example-1
+</br>
+In this example, the myMiddleware function is a custom middleware function that logs a message and then calls the next() function to pass control to the next middleware or the actual route handler.
+
+The app.use() function is used to apply the middleware to all routes that are defined after it. In this case, the middleware will be executed for any incoming request before it reaches the /myroute route.
+
+```
+const express = require('express');
+const app = express();
+
+// Middleware function
+const myMiddleware = (req, res, next) => {
+  // Do something with the request or response
+  console.log('Middleware executed');
+  next(); // Call next to pass control to the next middleware or route handler
+};
+
+// Middleware is applied to all routes below it
+app.use(myMiddleware);
+
+// Route handler with middleware
+app.get('/myroute', (req, res) => {
+  // This is the route handler logic
+  res.send('Hello from my route!');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+Example-2
+</br>
+
+In this example, there are two middleware functions (Middleware 1 and Middleware 2) defined using app.use(), and a route handler defined for the root path ('/'). When you make a request to the root path, the middleware functions are executed first in the order they are defined, and then the route handler is executed.
+
+```
+const express = require('express');
+const app = express();
+
+// Middleware function 1
+app.use((req, res, next) => {
+  console.log('Middleware 1');
+  next(); // Pass control to the next middleware
+});
+
+// Middleware function 2
+app.use((req, res, next) => {
+  console.log('Middleware 2');
+  next(); // Pass control to the next middleware
+});
+
+// Route handler
+app.get('/', (req, res) => {
+  console.log('Route handler');
+  res.send('Hello from Express!');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+Example-3
+</br>
+In this example, the middleware function logs the incoming request's method (req.method) and URL (req.url) along with the current timestamp. It then calls next() to pass control to the next middleware or route handler.
+```
+const express = require('express');
+const app = express();
+
+// Middleware to log incoming requests
+app.use((req, res, next) => {
+  console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
+  next();
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+Example-4 Authentication Middleware
+</br>
+In this example, we've created a middleware function isAuthenticated that simulates user authentication based on a token. If the token is valid, it sets the req.user object and calls next(). If the token is invalid, it sends a 401 Unauthorized response. The /profile route is protected by the isAuthenticated middleware, ensuring only authenticated users can access it.
+
+```
+const express = require('express');
+const app = express();
+
+// Mock user authentication
+const isAuthenticated = (req, res, next) => {
+  const { token } = req.headers;
+  if (token === 'secret-token') {
+    req.user = { username: 'john_doe' };
+    next();
+  } else {
+    res.status(401).send('Unauthorized');
+  }
+};
+
+app.use(express.json());
+
+// Protected route
+app.get('/profile', isAuthenticated, (req, res) => {
+  res.send(`Welcome, ${req.user.username}!`);
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+<li>If you want to apply middleware to a specific route, you can pass the middleware function as an argument to the route handler:
+</li>
+
+```
+app.get('/myroute', myMiddleware, (req, res) => {
+  // This route-specific middleware will be executed before this route's handler
+  res.send('Hello from my route with middleware!');
+});
+```
+
 <li>const express = require('express');
 const router = express.Router();</li>
 </ul>
